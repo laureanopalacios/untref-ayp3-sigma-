@@ -3,10 +3,10 @@
 
 typedef struct Nodo{
     struct Nodo* proximo;
-    int valor;
+    void* valor;
 } Nodo;
 
-Nodo* nuevoNodo(int data) {
+Nodo* nuevoNodo(void data) {
     //Reserva memoria en el Stack para el nuevo nodo e inicializa los atributos del nuevo nodo
     Nodo* nuevo = malloc(sizeof(Nodo));
     nuevo->valor = data;
@@ -15,14 +15,14 @@ Nodo* nuevoNodo(int data) {
 }
 
 
-void insertarAlInicio(Nodo** cabeza, int data) {
+void insertarAlInicio(Nodo** cabeza, void data) {
     //Crea un nuevo nodo con el dato asignado y que apunte a la cabeza y luego lo convierte en la cabeza de la lista
     Nodo*  nuevo = nuevoNodo(data);
     nuevo->proximo = *cabeza;
     *cabeza = nuevo;
 }
 
-void insertarAlFinal (Nodo** cabeza, int data) {
+void insertarAlFinal (Nodo** cabeza, void data) {
     //Si la lista esta vacia el nuevo nodo es la cabeza
     Nodo* nuevo = nuevoNodo(data);
     if (*cabeza == NULL) {
@@ -37,7 +37,7 @@ void insertarAlFinal (Nodo** cabeza, int data) {
     }
 }
 
-void eliminarNodo(Nodo** cabeza, int data) {
+void eliminarNodo(Nodo** cabeza, void data) {
     Nodo* actual = *cabeza;
     Nodo* anterior = NULL;
 
@@ -65,7 +65,7 @@ void eliminarNodo(Nodo** cabeza, int data) {
     printf("Nodo eliminado.\n");
 }
 
-Nodo* buscarNodo(Nodo* cabeza, int data) {
+Nodo* buscarNodo(Nodo* cabeza, void data) {
     //Si encuentra un nodo que coincida en valor con el dato ingresado lo devuelve, caso contrario, avanza al siguiente
     while(cabeza != NULL) {
         if (cabeza->valor == data){
