@@ -23,7 +23,7 @@ void altaAlumno(Nodo** listaAlumnos) {
 
     nuevoAlumno->cant_materias = 0;
 
-    Nodo* nuevoNodo = nuevoNodoLista(nuevoAlumno); // función para crear nodo
+    Nodo* nuevoNodo = nuevoNodoLista((void*)nuevoAlumno); // función para crear nodo
 
     // Insertar al principio de la lista
     nuevoNodo->next = *listaAlumnos;
@@ -37,7 +37,7 @@ void modificarAlumno(Nodo** listaAlumnos){
     printf("Ingrese el nombre del alumno a modificar:\n");
     scanf("%s", &nombre);
     
-    Nodo* alumnoModificado = buscarNodo(listaAlumnos, nombre);
+    Nodo* alumnoModificado = buscarNodo(listaAlumnos, (void*)nombre);
     if (alumnoModificado == NULL) {
         printf("El alumno no está en la lista.\n");
         return;
@@ -51,7 +51,7 @@ void eliminarAlumno(Nodo** listaAlumnos){
     char nombre[20];
     printf("Ingrese el nombre del alumno a eliminar");
     scanf("%s", &nombre);
-    listaAlumnos.eliminarNodo(listaAlumnos, nombre);
+    listaAlumnos.eliminarNodo(listaAlumnos, (void*)nombre);
 }
 
 void listarAlumnos(Nodo** listaAlumnos){
@@ -62,7 +62,7 @@ void buscarAlumnoPorNombre(Nodo** listaAlumnos){
     char nombre[20];
     printf("Ingrese el nombre del alumno a buscar:\n");
     scanf("%s", &nombre);
-    Nodo* alumno = buscarNodo(listaAlumnos, nombre);
+    Nodo* alumno = buscarNodo(listaAlumnos, (void*) nombre);
     if (alumno == NULL) {
         printf("Alumno no encontrado.\n");
         return;
@@ -100,3 +100,4 @@ void anotarAlumnoEnMateria (Nodo* listaAlumnos, Nodo* listaMaterias){
 // void calcularEstadisticas(Nodo* listaEstudiantes, Nodo* listaMaterias);
 // void calcularPromedioEstudiante(Nodo* listaEstudiantes, char nombre[]);
 // void calcularPromedioMateria(Nodo* listaEstudiantes, int codigoMateria);
+
