@@ -97,7 +97,7 @@ void liberarLista(Nodo** cabeza) {
     *cabeza = NULL;
 }
 
-// Menú interactivo
+// Menu interactivo
 int main() {
     Nodo* lista = NULL;
     int opcion, valor;
