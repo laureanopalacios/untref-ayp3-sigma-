@@ -44,43 +44,26 @@ int main() {
                 buscarAlumnoPorNombre(listaAlumnos);
                 break;
             case 5: 
-                buscarEstudiantePorEdad(listaAlumnos);
+                buscarAlumnoPorEdad(listaAlumnos);
                 break;  
             case 6:
                 rendirMateria(listaAlumnos);
                 break;
             case 7:
-                listarAlumnos(listaAlumnos);
+                listarAlumnos(&listaAlumnos);
                 break;
             case 8:
-                listarMaterias(listaMaterias);
+                listarMaterias(&listaMaterias);
                 break;
             case 9:
-                modificarAlumno(listaAlumnos);
+                modificarAlumno(&listaAlumnos);
                 break;
             case 10:
-                modificarMateria(listaMaterias);
+                modificarMateria(&listaMaterias);
                 break;
             case 11:
                 eliminarAlumno(&listaAlumnos);
-                break;
-            case 12:
-                {
-                    char nombre[20];
-                    printf("Ingrese el nombre del alumno: ");
-                    scanf("%s", nombre);
-                    buscarEstudiantePorNombre(listaAlumnos, nombre);
-                }
-                break;
-            case 13:
-                {
-                    int edad;
-                    printf("Ingrese la edad del alumno: ");
-                    scanf("%d", &edad);
-                    buscarEstudiantePorEdad(listaAlumnos, edad);
-                }
-                break;
-       
+                break;       
             // case 15:
             //     {
             //         char nombre[50];

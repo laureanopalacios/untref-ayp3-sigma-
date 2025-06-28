@@ -1,12 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
-
-typedef struct Nodo{
-    struct Nodo* proximo;
-    void* valor;
-} Nodo;
+#include "structsYusos.c"
 
 
 Nodo* nuevoNodo(void* data) {
@@ -15,7 +10,7 @@ Nodo* nuevoNodo(void* data) {
     n->valor = malloc(20 * sizeof(char));           // reservar espacio para un int
     strncpy((char*)n->valor, data, 19);          // copiar máximo 19 chars
     ((char*)n->valor)[19] = '\0';   
-    n->proximo = NULL;
+    n->next = NULL;
     return n;
 }
 
@@ -23,7 +18,7 @@ void insertarAlInicio(Nodo** cabeza, void* data) {
     //Crea un nuevo nodo con el dato asignado y que apunte a la cabeza y luego lo convierte en la cabeza de la lista
     Nodo* nuevo = nuevoNodo(data);
     nuevo = nuevoNodo(data);
-    nuevo->proximo = *cabeza;
+    nuevo->next = *cabeza;
     *cabeza = nuevo;
 }
 
@@ -34,11 +29,11 @@ void insertarAlFinal (Nodo** cabeza, void* data) {
         *cabeza = nuevo;
     } else {    //Recorre desde la cabeza hasta el último nodo de la lista
         Nodo* cursor = *cabeza;
-        while (cursor->proximo != NULL) {
-            cursor = cursor->proximo;
+        while (cursor->next != NULL) {
+            cursor = cursor->next;
         }    
         //Conecta el último nodo de la lista al nuevo nodo
-        cursor->proximo = nuevo;
+        cursor->next = nuevo;
     }
 }
 
@@ -55,14 +50,14 @@ void eliminarNodo(Nodo** cabeza, void* data) {
     //Busca el valor a eliminar y el anterior
     while (actual != NULL && *(int*)(actual->valor) != *(int*)data){
         anterior = actual;
-        actual = actual->proximo;
+        actual = actual->next;
     }
     
     //Hacemos que el anterior deje de apuntar al nodo a eliminar y que en cambio apunte al siguiente
     if (anterior == NULL) {
-        *cabeza = actual->proximo;
+        *cabeza = actual->next;
     } else {
-        anterior->proximo = actual->proximo;
+        anterior->next = actual->next;
     }
     
     //Libera la memoria del nodo que eliminamos
@@ -84,7 +79,7 @@ Nodo* buscarNodo(Nodo* cabeza, void* data, FuncionComparacion cmp) {
         if (cmp(cabeza->valor, data) == 0){
             return cabeza;
         }
-        cabeza = cabeza->proximo;
+        cabeza = cabeza->next;
     }
     return NULL;
 }
@@ -94,7 +89,7 @@ void imprimirLista(Nodo* cabeza) {
     printf("Lista: ");
     while (cabeza != NULL) {
         printf("%d -> ", *(int*)cabeza->valor);
-        cabeza = cabeza->proximo;
+        cabeza = cabeza->next;
     }
     printf("NULL\n");
 }
@@ -104,7 +99,7 @@ void imprimirListaStrings(Nodo* cabeza) {
     printf("Lista: ");
     while (cabeza != NULL) {
         printf("%s -> ", (char*)cabeza->valor);
-        cabeza = cabeza->proximo;
+        cabeza = cabeza->next;
     }
     printf("NULL\n");
 }
@@ -113,7 +108,7 @@ void liberarLista(Nodo** cabeza) {
     //Recorre la lista liberando la memoria de cada nodo
     Nodo* actual = *cabeza;
     while (actual != NULL) {
-        Nodo* siguiente = actual->proximo;
+        Nodo* siguiente = actual->next;
         free(actual);
         actual = siguiente;
     }
