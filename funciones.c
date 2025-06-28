@@ -110,37 +110,46 @@ void listarAlumnos(Nodo** listaAlumnos){
 }
 
 
-void buscarAlumnoPorNombre(Nodo** listaAlumnos){
-    char nombre[20];
-    printf("Ingrese el nombre del alumno a buscar:\n");
-    scanf("%s", nombre);
-    Nodo* alumno = buscarNodo(*listaAlumnos, (void*) nombre,compararNombres);
-    if (alumno == NULL) {
-        printf("Alumno no encontrado.\n");
-        return;
+void buscarAlumnoPorNombre(Nodo* listaAlumnos, char nombre[]) {
+    while (listaAlumnos != NULL) {
+        Nodo* alumno = (Nodo*)listaAlumnos->valor;
+        if (strcmp(alumno->nombre, nombre) == 0) {
+            printf("Nombre: %s, Edad: %d\n", alumno->nombre, alumno->edad);
+            for (int i = 0; i < alumno->num_materias; i++) {
+                printf("\tMateria: %s, Nota: %d, Aprobada: %s\n", alumno->materias[i]->nombre, alumno->materias[i]->nota, estudiante->materias[i]->aprobado ? "Si" : "No");
+            }
+            return;
+        }
+        listaAlumnos = listaAlumnos->next;
     }
-
-    printf("Alumno encontrado.\n");
+    printf("Estudiante no encontrado.\n");
 }
 
-int comparadorPorEdad(void* a, void* b) {
+/*int comparadorPorEdad(void* a, void* b) {
     Alumno* alumno = (Alumno*)a;
     int* edadBuscada = (int*)b;
     printf("Comparando %d con %d\n", alumno->edad, *edadBuscada);    
     return alumno->edad - *edadBuscada;
 }
+*/
 
 
-void buscarAlumnoPorEdad(Nodo** listaAlumnos){
-    int edad;
-    printf("Ingrese la edad del alumno a buscar:\n");
-    scanf("%d", &edad);
-    Nodo* alumno = buscarNodo(*listaAlumnos,&edad, comparadorPorEdad);
-    if (alumno == NULL) {
-        printf("Alumno no encontrado.\n");
-        return;
+void buscarEstudiantePorEdad(Nodo* listaAlumnos, int edad) {
+    int encontrado = 0;
+    while (listaAlumnos != NULL) {
+        Nodo* alumno = (Nodo*)listaAlumnos->valor;
+        if (alumno->edad == edad) {
+            printf("Nombre: %s, Edad: %d\n", alumno->nombre, alumno->edad);
+            for (int i = 0; i < alumno->num_materias; i++) {
+                printf("\tMateria: %s, Nota: %d, Aprobada: %s\n", estudiante->materias[i]->nombre, alumno->materias[i]->nota, estudiante->materias[i]->aprobado ? "Si" : "No");
+            alumno
+            encontrado = 1;
+        }
+        listaAlumnos = listaAlumnos->next;
     }
-    printf("Alumno encontrado.\n");
+    if (!encontrado) {
+        printf("No se encontraron estudiantes con la edad %d.\n", edad);
+    }
 }
 
 void anotarAlumnoEnMateria (Nodo* listaAlumnos, Nodo* listaMaterias){
