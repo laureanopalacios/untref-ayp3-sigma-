@@ -2,11 +2,11 @@
 #include <stdlib.h>
 #include <string.h>
 #include "funciones.c"
-
+#include "linkedListReal.c"
 
 
 int main() {
-    Nodo* listaEstudiantes = NULL;
+    Nodo* listaAlumnos = NULL;
     Nodo* listaMaterias = NULL;
     
     int opcion;
@@ -32,71 +32,72 @@ int main() {
         
         switch (opcion) {
             case 1:
-                altaEstudiante(&listaEstudiantes);
+                altaAlumno(&listaAlumnos);
                 break;
             case 2:
                 altaMateria(&listaMaterias);
                 break;
             case 3:
-                anotarEstudianteEnMateria(listaEstudiantes, listaMaterias);
+                anotarAlumnoEnMateria(listaAlumnos, listaMaterias);
                 break;
             case 4:
-                rendirMateria(listaEstudiantes);
+                buscarAlumnoPorNombre(listaAlumnos);
                 break;
-            case 5:
-                listarEstudiantes(listaEstudiantes);
-                break;
+            case 5: 
+                buscarEstudiantePorEdad(listaAlumnos);
+                break;  
             case 6:
-                listarMaterias(listaMaterias);
+                rendirMateria(listaAlumnos);
                 break;
             case 7:
-                modificarEstudiante(listaEstudiantes);
+                listarAlumnos(listaAlumnos);
                 break;
             case 8:
-                modificarMateria(listaMaterias);
+                listarMaterias(listaMaterias);
                 break;
             case 9:
-                eliminarEstudiante(&listaEstudiantes);
+                modificarAlumno(listaAlumnos);
                 break;
             case 10:
-                eliminarMateria(&listaMaterias);
+                modificarMateria(listaMaterias);
                 break;
             case 11:
-                {
-                    char nombre[50];
-                    printf("Ingrese el nombre del alumno: ");
-                    scanf("%s", nombre);
-                    buscarEstudiantePorNombre(listaEstudiantes, nombre);
-                }
+                eliminarAlumno(&listaAlumnos);
                 break;
             case 12:
+                {
+                    char nombre[20];
+                    printf("Ingrese el nombre del alumno: ");
+                    scanf("%s", nombre);
+                    buscarEstudiantePorNombre(listaAlumnos, nombre);
+                }
+                break;
+            case 13:
                 {
                     int edad;
                     printf("Ingrese la edad del alumno: ");
                     scanf("%d", &edad);
-                    buscarEstudiantePorEdad(listaEstudiantes, edad);
+                    buscarEstudiantePorEdad(listaAlumnos, edad);
                 }
                 break;
-            case 13:
-                calcularEstadisticas(listaEstudiantes, listaMaterias);
-                break;
-            case 14:
-                {
-                    char nombre[50];
-                    printf("Ingrese el nombre del alumno: ");
-                    scanf("%s", nombre);
-                    calcularPromedioEstudiante(listaEstudiantes, nombre);
-                }
-                break;
-            case 15:
-                {
-                    int codigoMateria;
-                    printf("Ingrese el codigo de la materia: ");
-                    scanf("%d", &codigoMateria);
-                    calcularPromedioMateria(listaEstudiantes, codigoMateria);
-                }
-                break;
-            case 16:
+       
+            // case 15:
+            //     {
+            //         char nombre[50];
+            //         printf("Ingrese el nombre del alumno: ");
+            //         scanf("%s", nombre);
+            //         calcularPromedioEstudiante(listaAlumnos, nombre);
+            //     }
+            //     break;
+            // case 16:
+            //     {
+            //         int codigoMateria;
+            //         printf("Ingrese el codigo de la materia: ");
+            //         scanf("%d", &codigoMateria);
+            //         calcularPromedioMateria(listaAlumnos, codigoMateria);
+            //     }
+            //     break;
+            case 17:
                 printf("Saliendo...\n");
                 break;
             default:

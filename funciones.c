@@ -1,4 +1,4 @@
-#include <cstddef>
+//#include <cstddef>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -136,8 +136,8 @@ void buscarEstudiantePorEdad(Nodo* listaAlumnos, int edad) {
     if (!encontrado) {
         printf("No se encontraron estudiantes con la edad %d.\n", edad);
     }
+  }
 }
-
 void anotarAlumnoEnMateria (Nodo* listaAlumnos, Nodo* listaMaterias){
 char nombreAlumno[20];
     int codigoMateria;
@@ -149,7 +149,7 @@ char nombreAlumno[20];
 
     Nodo* cursorAlum = listaAlumnos;
     while (cursorAlum != NULL) {
-        Nodo* alumno = (Nodo*)cursor->valor;
+        Alumno* alumno = (Alumno*)cursor->valor;
         if (strcmp(alumno->nombre, alumno) == 0) {
             Nodo* cursorMateria = listaAlumnos;
             while (cursorMateria != NULL) {
@@ -222,7 +222,7 @@ char nombreAlumno[20];
 // void buscarEstudiantePorNombre(Nodo* listaEstudiantes, char nombre[]); xxx
 // void buscarEstudiantePorEdad(Nodo* listaEstudiantes, int edad); xxx 
 // void anotarEstudianteEnMateria(Nodo* listaEstudiantes, Nodo* listaMaterias); xxx
-// void rendirMateria(Nodo* listaEstudiantes);
+// void rendirMateria(Nodo* listaEstudiantes); xxx
 // void calcularEstadisticas(Nodo* listaEstudiantes, Nodo* listaMaterias);
 // void calcularPromedioEstudiante(Nodo* listaEstudiantes, char nombre[]);
 // void calcularPromedioMateria(Nodo* listaEstudiantes, int codigoMateria);
