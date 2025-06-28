@@ -1,87 +1,146 @@
+#include <cstddef>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-#include <funcionesYstructs.c>
-#include <linkedListReal.c>
+#include "structsYusos.c"
 
-#define maximoMaterias 8
+int compararNombres(void* a, void* b) {
+    char* nombre1 = (char*)a;
+    char* nombre2 = (char*)b;
+    return strcmp(nombre1, nombre2);
+}
 
 void altaAlumno(Nodo** listaAlumnos) {
+    //Reserva memoria y devuelve error en caso de estar llena
     Alumno* nuevoAlumno = (Alumno*)malloc(sizeof(Alumno));
-
-    if (nuevoAlumno == NULL) {
+    Nodo* nodo = (Nodo*)malloc(sizeof(Nodo));
+    if (nuevoAlumno == NULL || nodo == NULL) {
         printf("Memoria llena, no se pudo asignar memoria para el alumno.\n");
+        free(nuevoAlumno);
+        free(nodo);
         return;
     }
 
-    printf("Ingrese el nombre del alumno:\n");
+    //Asigna los datos al alumno
+    printf("Ingrese el nombre del alumno: \n");
     scanf("%s", nuevoAlumno->nombre);
 
-    printf("Ingrese edad del alumno:\n");
+    printf("Ingrese edad del alumno: \n");
     scanf("%d", &nuevoAlumno->edad);
 
     nuevoAlumno->cant_materias = 0;
 
-    Nodo* nuevoNodo = nuevoNodoLista((void*)nuevoAlumno); // función para crear nodo
-
-    // Insertar al principio de la lista
-    nuevoNodo->next = *listaAlumnos;
-    *listaAlumnos = nuevoNodo;
-
+    
+    //Asigna valores al nodo
+    nodo->valor = nuevoAlumno;
+    nodo->next = NULL;
+    
+    //Si la lista esta vacia, el nuevo nodo es el head
+    if (*listaAlumnos == NULL){
+        *listaAlumnos = nodo;
+    } else { //Sino, el cursor se situa en el último elemento de la lista y asigna como siguiente al nuevo nodo
+        Nodo* cursor = *listaAlumnos;
+        while (cursor->next != NULL){
+            cursor = cursor ->next;
+        }
+        cursor -> next = nodo;
+    }
     printf("Alta realizada con éxito.\n");
 }
 
 void modificarAlumno(Nodo** listaAlumnos){
     char nombre[20];
-    printf("Ingrese el nombre del alumno a modificar:\n");
-    scanf("%s", &nombre);
+    printf("Ingrese el nombre del alumno a modificar: \n");
+    scanf("%s", nombre);
     
-    Nodo* alumnoModificado = buscarNodo(listaAlumnos, (void*)nombre);
-    if (alumnoModificado == NULL) {
-        printf("El alumno no está en la lista.\n");
-        return;
+    Nodo* cursor = *listaAlumnos;
+    while(cursor != NULL) {
+        Alumno* alumno = (Alumno*)cursor->valor;
+        if (strcmp(alumno->nombre,nombre)== 0){
+            printf("Ingrese el nuevo nombre: ");
+            scanf("%s",alumno->nombre);
+            printf("Ingrese la nueva edad: ");
+            scanf("%d", &alumno->edad);
+            printf("Alumno modificado con éxito.\n");
+            return;
+        }
+        cursor = cursor->next;
     }
-
-    alumnoModificado -> nombre = nombre;
-    printf("Alumno modificado con éxito.\n");
+    printf("El alumno ingresado no existe.\n");
 }
 
 void eliminarAlumno(Nodo** listaAlumnos){
     char nombre[20];
     printf("Ingrese el nombre del alumno a eliminar");
-    scanf("%s", &nombre);
-    listaAlumnos.eliminarNodo(listaAlumnos, (void*)nombre);
+    scanf("%s", nombre);
+
+    Nodo* cursor = *listaAlumnos;
+    Nodo* anterior = NULL;
+    while (cursor != NULL) {
+        Alumno* alumno = (Alumno*)cursor->valor;{
+            if (strcmp(alumno->nombre, nombre)== 0){
+                if (anterior == NULL){
+                    *listaAlumnos = cursor->next;
+                } else {
+                    anterior ->next = cursor->next;
+                }
+                free(cursor);
+                printf("Alumno dado de baja.\n");
+            }
+            anterior = cursor;
+            cursor = cursor->next;
+        }
+    }
+    printf("El alumno ingresado no existe.\n");
 }
 
 void listarAlumnos(Nodo** listaAlumnos){
-    imprimirLista(listaAlumnos);
+    if (listaAlumnos == NULL){
+        printf("La lista está vacía.\n");
+        return;
+    }
+    printf("Listado: \n");
+    Nodo* cursor = *listaAlumnos;
+    while(cursor != NULL) {
+        Alumno* alumno = (Alumno*)cursor->valor;
+        printf("Nombre: %s, Edad: %d",alumno->nombre, alumno->edad);
+        cursor = cursor->next;
+    }
 }
+
 
 void buscarAlumnoPorNombre(Nodo** listaAlumnos){
     char nombre[20];
     printf("Ingrese el nombre del alumno a buscar:\n");
-    scanf("%s", &nombre);
-    Nodo* alumno = buscarNodo(listaAlumnos, (void*) nombre);
+    scanf("%s", nombre);
+    Nodo* alumno = buscarNodo(*listaAlumnos, (void*) nombre,compararNombres);
     if (alumno == NULL) {
         printf("Alumno no encontrado.\n");
         return;
     }
 
-    printf("Alumno encontrado.\n")
+    printf("Alumno encontrado.\n");
 }
+
+int comparadorPorEdad(void* a, void* b) {
+    Alumno* alumno = (Alumno*)a;
+    int* edadBuscada = (int*)b;
+    printf("Comparando %d con %d\n", alumno->edad, *edadBuscada);    
+    return alumno->edad - *edadBuscada;
+}
+
 
 void buscarAlumnoPorEdad(Nodo** listaAlumnos){
     int edad;
-    printf("Ingrese el nombre del alumno a buscar:\n");
-    scanf("%s", &nombre);
-    Nodo* alumno = buscarNodo(listaAlumnos, edad;
+    printf("Ingrese la edad del alumno a buscar:\n");
+    scanf("%d", &edad);
+    Nodo* alumno = buscarNodo(*listaAlumnos,&edad, comparadorPorEdad);
     if (alumno == NULL) {
         printf("Alumno no encontrado.\n");
         return;
     }
-
-    printf("Alumno encontrado.\n")
+    printf("Alumno encontrado.\n");
 }
 
 void anotarAlumnoEnMateria (Nodo* listaAlumnos, Nodo* listaMaterias){

@@ -1,14 +1,11 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
+#pragma once
 #define MaximoMaterias 8
 
-typedef struct {
-    char nombre[20];
-    int nota;
-    int aprobado;
+typedef struct Materia {
+    char nombre[50];
+    int codigo;
 } Materia;
+
 
 typedef struct {
     char nombre[20];
@@ -17,6 +14,9 @@ typedef struct {
     int cant_materias; 
 } Alumno;
 
-
+typedef struct Nodo{
+    struct Nodo* next;
+    void* valor;
+} Nodo;
 
 

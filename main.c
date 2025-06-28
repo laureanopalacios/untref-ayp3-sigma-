@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "funcionesYstructs.c"
 #include "funciones.c"
 // main de funciones :)
+
 int main() {
     Nodo* listaAlumnos = NULL;
     Nodo* listaMaterias = NULL; 
