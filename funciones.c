@@ -153,9 +153,53 @@ void buscarEstudiantePorEdad(Nodo* listaAlumnos, int edad) {
 }
 
 void anotarAlumnoEnMateria (Nodo* listaAlumnos, Nodo* listaMaterias){
+char nombreEstudiante[20];
+    int codigoMateria;
 
+    printf("Ingrese el nombre del estudiante: ");
+    scanf("%s", nombreEstudiante);
+    printf("Ingrese el codigo de la materia: ");
+    scanf("%d", &codigoMateria);
+
+    Nodo* cursorAlum = listaAlumnos;
+    while (cursorAlum != NULL) {
+        Nodo* alumno = (Nodo*)cursor->valor;
+        if (strcmp(alumno->nombre, alumno) == 0) {
+            Nodo* cursorMateria = listaAlumnos;
+            while (cursorMateria != NULL) {
+                Materia* materia = (Materia*)cursorMateria->data;
+                if (materia->codigo == codigoMateria) {
+                    if (alumno->cant_materias < MaximoMaterias) {
+                        Materia* copiaMateria = (Materia*)malloc(sizeof(Materia));
+                        if (copiaMateria == NULL) {
+                            printf("Error: No se pudo asignar memoria para la copia de la materia.\n");
+                            return;
+                        }
+                        strcpy(copiaMateria->nombre, materia->nombre);
+                        copiaMateria->codigo = materia->codigo;
+                        copiaMateria->nota = -1; 
+                        copiaMateria->aprobado = 0; 
+
+                        alumno->materias[alumno->cant_materias] = copiaMateria;
+                        alumno->cant_materias++;
+                        printf("Estudiante %s anotado en la materia %s.\n", alumno->nombre, materia->nombre);
+                    } else {
+                        printf("El estudiante ya esta inscrito en el maximo de materias permitidas.\n");
+                    }
+                    return;
+                }
+                cursorMateria = cursorMateria->next;
+            }
+            printf("Materia no encontrada.\n");
+            return;
+        }
+        cursorAlum = cursorAlum->next;
+    }
+    printf("Estudiante no encontrado.\n");
 }
-
+void rendirMateria(Nodo* listarAlumnos){
+    
+}
 
 // void altaEstudiante(Nodo** listaEstudiantes); xxx
 // void modificarEstudiante(Nodo* listaEstudiantes); xxx
@@ -163,7 +207,7 @@ void anotarAlumnoEnMateria (Nodo* listaAlumnos, Nodo* listaMaterias){
 // void listarEstudiantes(Nodo* listaEstudiantes); xxx 
 // void buscarEstudiantePorNombre(Nodo* listaEstudiantes, char nombre[]); xxx
 // void buscarEstudiantePorEdad(Nodo* listaEstudiantes, int edad); xxx 
-// void anotarEstudianteEnMateria(Nodo* listaEstudiantes, Nodo* listaMaterias);
+// void anotarEstudianteEnMateria(Nodo* listaEstudiantes, Nodo* listaMaterias); xxx
 // void rendirMateria(Nodo* listaEstudiantes);
 // void calcularEstadisticas(Nodo* listaEstudiantes, Nodo* listaMaterias);
 // void calcularPromedioEstudiante(Nodo* listaEstudiantes, char nombre[]);

@@ -4,6 +4,8 @@
 typedef struct Materia {
     char nombre[50];
     int codigo;
+    int nota;
+    int aprobado;
 } Materia;
 
 
