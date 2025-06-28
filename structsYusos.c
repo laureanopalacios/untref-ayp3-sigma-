@@ -6,16 +6,17 @@
 
 typedef struct {
     char nombre[20];
+    int nota;
+    int aprobado;
+} Materia;
+
+typedef struct {
+    char nombre[20];
     int edad;
     Materia* materias[MaximoMaterias];
     int cant_materias; 
 } Alumno;
 
-typedef struct {
-    char nombre[20];
-    int nota;
-    int aprobado
-} Materia;
 
 
 

@@ -6,6 +6,7 @@ typedef struct Nodo{
     void* valor;
 } Nodo;
 
+
 Nodo* nuevoNodo(void data) {
     //Reserva memoria en el Stack para el nuevo nodo e inicializa los atributos del nuevo nodo
     Nodo* nuevo = malloc(sizeof(Nodo));
