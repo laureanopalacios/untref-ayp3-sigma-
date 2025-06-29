@@ -23,10 +23,10 @@ int main() {
         printf("10. Eliminar materia\n");
         printf("11. Buscar alumno por nombre\n");
         printf("12. Buscar alumno por edad\n");
-        printf("13. Calcular estadisticas\n");
-        printf("14. Calcular promedio de un alumno\n");
-        printf("15. Calcular promedio de una materia\n");
-        printf("16. Salir\n");
+        //printf("13. Calcular estadisticas\n");
+        //printf("14. Calcular promedio de un alumno\n");
+        //printf("15. Calcular promedio de una materia\n");
+        printf("13. Salir\n");
         printf("Seleccione una : ");
         scanf("%d", &opcion);
         
@@ -41,29 +41,34 @@ int main() {
                 anotarAlumnoEnMateria(listaAlumnos, listaMaterias);
                 break;
             case 4:
-                buscarAlumnoPorNombre(listaAlumnos);
-                break;
-            case 5: 
-                buscarAlumnoPorEdad(listaAlumnos);
-                break;  
-            case 6:
                 rendirMateria(listaAlumnos);
                 break;
-            case 7:
+            case 5: 
                 listarAlumnos(&listaAlumnos);
-                break;
-            case 8:
+                break;  
+            case 6:
                 listarMaterias(&listaMaterias);
                 break;
-            case 9:
+            case 7:
                 modificarAlumno(&listaAlumnos);
                 break;
-            case 10:
+            case 8:
                 modificarMateria(&listaMaterias);
                 break;
-            case 11:
+            case 9:
                 eliminarAlumno(&listaAlumnos);
-                break;       
+                break;
+            case 10:
+                eliminarMateria(&listaMaterias);
+                break;
+            case 11:
+                buscarAlumnoPorNombre(listaAlumnos);
+                break;
+            case 12:
+                buscarAlumnoPorEdad(listaAlumnos);
+                break;
+        
+           
             // case 15:
             //     {
             //         char nombre[50];
@@ -80,7 +85,7 @@ int main() {
             //         calcularPromedioMateria(listaAlumnos, codigoMateria);
             //     }
             //     break;
-            case 17:
+            case 13:
                 printf("Saliendo...\n");
                 break;
             default:

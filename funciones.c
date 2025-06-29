@@ -291,7 +291,30 @@ void modificarMateria(Nodo** listaMaterias){
     }
     printf("La materia ingresada no existe.\n");
 }
+void eliminarMateria(Nodo** listaMaterias) {
+    int codigo;
+    printf("Ingrese el codigo de la materia a eliminar: ");
+    scanf("%d", &codigo);
 
+    Nodo *cursor = *listaMaterias, *anterior = NULL;
+    while (cursor != NULL) {
+        Materia* materia = (Materia*)cursor->valor;
+        if (materia->codigo == codigo) {
+            if (anterior == NULL) {
+                *listaMaterias = cursor->next;
+            } else {
+                anterior->next = cursor->next;
+            }
+            free(materia);
+            free(cursor);
+            printf("Materia eliminada exitosamente.\n");
+            return;
+        }
+        anterior = cursor;
+        cursor = cursor->next;
+    }
+    printf("Materia no encontrada.\n");
+}
 // void altaalumno(Nodo** listaAlumnos); xxx
 // void modificaralumno(Nodo* listaAlumnos); xxx
 // void eliminaralumno(Nodo** listaAlumnos); xxx
