@@ -1,60 +1,102 @@
 #include <stdio.h>
 #include <stdlib.h>
-
-#include "funcionesYstructs.c"
+#include <string.h>
 #include "funciones.c"
-// main de funciones :)
+#include "linkedListReal.c"
+
+
 int main() {
     Nodo* listaAlumnos = NULL;
-    Nodo* listaMaterias = NULL; 
-
+    Nodo* listaMaterias = NULL;
+    
     int opcion;
-
     do {
-        printf("\n--- MENU DE ALUMNOS ---\n");
-        printf("1. Alta de alumno\n");
-        printf("2. Modificar alumno\n");
-        printf("3. Eliminar alumno\n");
-        printf("4. Listar alumnos\n");
-        printf("5. Buscar alumno por nombre\n");
-        printf("6. Buscar alumno por edad\n");
-        printf("7. Anotar alumno en materia\n");
+        printf("\n1. Alta de alumno\n");
+        printf("2. Alta de materia\n");
+        printf("3. Anotar alumno en materia\n");
+        printf("4. Rendir materia\n");
+        printf("5. Listar alumnos\n");
+        printf("6. Listar materias\n");
+        printf("7. Modificar alumno\n");
+        printf("8. Modificar materia\n");
+        printf("9. Eliminar alumno\n");
+        printf("10. Eliminar materia\n");
+        printf("11. Buscar alumno por nombre\n");
+        printf("12. Buscar alumnos por edad\n");
+        printf("13. Buscar alumnos por materia\n");
+        //printf("13. Calcular estadisticas\n");
+        //printf("14. Calcular promedio de un alumno\n");
+        //printf("15. Calcular promedio de una materia\n");
         printf("0. Salir\n");
-        printf("Seleccione una opcion: ");
+        printf("Seleccione una: ");
         scanf("%d", &opcion);
-
+        
         switch (opcion) {
             case 1:
                 altaAlumno(&listaAlumnos);
                 break;
             case 2:
-                modificarAlumno(&listaAlumnos);
+                altaMateria(&listaMaterias);
                 break;
             case 3:
-                eliminarAlumno(&listaAlumnos);
-                break;
-            case 4:
-                listarAlumnos(&listaAlumnos);
-                break;
-            case 5:
-                buscarAlumnoPorNombre(&listaAlumnos);
-                break;
-            case 6:
-                buscarAlumnoPorEdad(&listaAlumnos);
-                break;
-            case 7:
                 anotarAlumnoEnMateria(listaAlumnos, listaMaterias);
                 break;
+            case 4:
+                rendirMateria(listaAlumnos);
+                break;
+            case 5: 
+                listarAlumnos(&listaAlumnos);
+                break;  
+            case 6:
+                listarMaterias(&listaMaterias);
+                break;
+            case 7:
+                modificarAlumno(&listaAlumnos);
+                break;
+            case 8:
+                modificarMateria(&listaMaterias);
+                break;
+            case 9:
+                eliminarAlumno(&listaAlumnos);
+                break;
+            case 10:
+                eliminarMateria(&listaMaterias);
+                break;
+            case 11:
+                buscarAlumnoPorNombre(listaAlumnos);
+                break;
+            case 12:
+                buscarAlumnosPorEdad(listaAlumnos);
+                break;
+            case 13:
+                buscarAlumnosPorMateria(listaAlumnos);
+                break;
+        
+           
+            // case 15:
+            //     {
+            //         char nombre[50];
+            //         printf("Ingrese el nombre del alumno: ");
+            //         scanf("%s", nombre);
+            //         calcularPromedioEstudiante(listaAlumnos, nombre);
+            //     }
+            //     break;
+            // case 16:
+            //     {
+            //         int codigoMateria;
+            //         printf("Ingrese el codigo de la materia: ");
+            //         scanf("%d", &codigoMateria);
+            //         calcularPromedioMateria(listaAlumnos, codigoMateria);
+            //     }
+            //     break;
             case 0:
-                printf("Salgo del programa.\n");
+                printf("Saliendo...\n");
+                exit(0);
                 break;
             default:
-                printf("Opcion invalida. Intente de nuevo.\n");
+                printf(" invalida. Intente de nuevo.\n");
         }
-
-    } while (opcion != 0);
+    } while (opcion != 16);
 
     return 0;
 }
-
-

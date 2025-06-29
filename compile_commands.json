@@ -1,0 +1,16 @@
+[
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-Wall",
+      "-g",
+      "-c",
+      "-o",
+      "linkedListReal.o",
+      "linkedListReal.c"
+    ],
+    "directory": "/home/laureano/ProgramaciónBajoNivel/untref-ayp3-sigma-",
+    "file": "/home/laureano/ProgramaciónBajoNivel/untref-ayp3-sigma-/linkedListReal.c",
+    "output": "/home/laureano/ProgramaciónBajoNivel/untref-ayp3-sigma-/linkedListReal.o"
+  }
+]

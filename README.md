@@ -27,21 +27,36 @@ El objetivo principal del sistema es permitir la administración eficiente de un
 
 ## 3. Consignas implementadas
 
-- **Gestión de estudiantes:** Se desarrollaron funciones que permiten:
-    - Dar de alta estudiantes, ingresando sus datos personales.
-    - Modificar la información de un estudiante ya existente.
-    - Eliminar estudiantes del sistema de forma segura.
-    - Listar todos los estudiantes registrados, mostrando su información.
-- **Búsquedas de estudiantes:**
-    Se implementó una búsqueda por nombre, que permite localizar rápidamente un estudiante ingresando su nombre y también se desarrolló una búsqueda por rango de edad.
-- **Gestión de materias:** 
-    - Alta de materias.
-    - Modificación de materias ya existentes.
-    - Eliminación de materias del sistema.
-    - Listado de todas las materias registradas.
-- **Inscripción:**
+**ALUMNOS** 
+---
+Se desarrollaron funciones como:
+- altaAlumno(Nodo** listaAlumnos): para dar de alta alumnos se crea un nuevo alumno, se reserva la memoria y pide nombre y edad.
+- modificarAlumno(Nodo** listaAlumnos): busca un alumno ya existente por nombre y nos permite modificar sus datos.
+- eliminarAlumno(Nodo** listaAlumnos): busca y elimina alumnos por nombre del sistema y libera memoria del nodo.
+- listarAlumnos(Nodo** listaAlumnos): recorre la lista de alumnos e imprime todos los estudiantes registrados, mostrando sus datos.
+- anotarAlumnoEnMateria(Nodo* listaAlumnos, Nodo* listaMaterias): se asocia un alumno con una materia que ya existe a través del código de ésta, se copian los datos de la materia y los guarda en alumno.
+- rendirMateria(Nodo* listaAlumnos): permite ingresar la nota de una materia rendida y marca si fue aprobada si la nota es superior o igual a 4.
+
+**Búsquedas de estudiantes:**
+- buscarAlumnoPorNombre(Nodo* listaAlumnos): se implementó una búsqueda por nombre, que permite localizar rápidamente un alumno ingresando su nombre.
+- buscarAlumnosPorEdad(Nodo* listaAlumnos): también se desarrolló una búsqueda por rango de edad que imprime los datos del alumno.
+- buscarAlumnosPorMateria(Nodo* listaAlumnos): por último creamos la funcion de buscar alumnos anotados en una materia por código.
+
+**MATERIAS** 
+---
+- altaMateria(Nodo** listaMaterias): se crea una nueva materia con nombre y código para agregar a la lista.
+- listarMaterias(Nodo** listaMaterias): se muestra un listado de todas las materias registradas.
+- modificarMateria(Nodo** listaMaterias): se busca una materia por código y se permite su modificación.
+- eliminarMateria(Nodo** listaMaterias): se busca y se elimina una materia por código y se libera memoria del nodo.
+
+**Inscripción:**
     Cada estudiante puede anotarse en un máximo de 8 materias.
     Se implementó una función para que los estudiantes puedan rendir materias.
 
-## 4. Puntos extra
+---
+## 4. Estructura base
+- **Nodo**: se utiliza una lista simplemente enlazada con void* valor para almacenar Alumno* o Materia*-
+- Tenemos un manejo dinámico de memoria (malloc, free).
+- Utilizamos strcmp para comparar cadenas de texto y strcpy para copiar una cadena de caracteres en otra.
+## 5. Puntos extra
 
