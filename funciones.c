@@ -157,8 +157,8 @@ char nombreAlumno[20];
     Nodo* cursorAlum = listaAlumnos;
     while (cursorAlum != NULL) {
         Alumno* alumno = (Alumno*)cursorAlum->valor;
-        if (strcmp(alumno->nombre, alumno->nombre) == 0) {
-            Nodo* cursorMateria = listaAlumnos;
+        if (strcmp(alumno->nombre, nombreAlumno) == 0) {
+           Nodo* cursorMateria = listaMaterias;
             while (cursorMateria != NULL) {
                 Materia* materia = (Materia*)cursorMateria->valor;
                 if (materia->codigo == codigoMateria) {
