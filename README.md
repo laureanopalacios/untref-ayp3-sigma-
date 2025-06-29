@@ -60,3 +60,5 @@ Se desarrollaron funciones como:
 - Utilizamos strcmp para comparar cadenas de texto y strcpy para copiar una cadena de caracteres en otra.
 ## 5. Puntos extra
 
+- **Estadisticas de estudiantes y materias**: se implementarion las funciones calcularPromedioEstudiante/Materia que permiten el calculo de estadisticas de una cursada o estudiante.
+

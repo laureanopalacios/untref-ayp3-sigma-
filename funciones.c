@@ -347,7 +347,8 @@ void eliminarMateria(Nodo** listaMaterias) {
     }
     printf("Materia no encontrada.\n");
 }
-void calcularAlumnoPromedio(Nodo** listaAlumnos){
+
+void calcularPromedioAlumno(Nodo** listaAlumnos){
     char nombre[20];
     printf("Ingrese el nombre del alumno: \n");
     scanf(" %[^\n]", nombre);
@@ -375,6 +376,12 @@ void calcularAlumnoPromedio(Nodo** listaAlumnos){
     if (!encontrado){
         printf("El alumno ingresado no existe.\n");
     }
+}
+
+void calcularEstadisticasMateria(Nodo** listaMaterias){
+    int codigo;
+    printf("Ingrese el codigo de la materia a eliminar: \n");
+    scanf("%d", &codigo);
 }
 // void altaalumno(Nodo** listaAlumnos); xxx
 // void modificaralumno(Nodo* listaAlumnos); xxx

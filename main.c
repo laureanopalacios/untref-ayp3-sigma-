@@ -2,8 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include "funciones.c"
-#include "linkedListReal.c"
-
 
 int main() {
     Nodo* listaAlumnos = NULL;
@@ -25,7 +23,7 @@ int main() {
         printf("12. Buscar alumnos por edad\n");
         printf("13. Buscar alumnos por materia\n");
         //printf("13. Calcular estadisticas\n");
-        //printf("14. Calcular promedio de un alumno\n");
+        printf("14. Calcular promedio de un alumno\n");
         //printf("15. Calcular promedio de una materia\n");
         printf("0. Salir\n");
         printf("Seleccione una: ");
@@ -72,23 +70,12 @@ int main() {
                 buscarAlumnosPorMateria(listaAlumnos);
                 break;
         
-           
-            // case 15:
-            //     {
-            //         char nombre[50];
-            //         printf("Ingrese el nombre del alumno: ");
-            //         scanf("%s", nombre);
-            //         calcularPromedioEstudiante(listaAlumnos, nombre);
-            //     }
-            //     break;
-            // case 16:
-            //     {
-            //         int codigoMateria;
-            //         printf("Ingrese el codigo de la materia: ");
-            //         scanf("%d", &codigoMateria);
-            //         calcularPromedioMateria(listaAlumnos, codigoMateria);
-            //     }
-            //     break;
+            case 14:
+                calcularPromedioAlumno(&listaAlumnos);
+                break;
+            case 15:
+                calcularEstadisticasMateria(&listaMaterias);
+                break;
             case 0:
                 printf("Saliendo...\n");
                 exit(0);
