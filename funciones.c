@@ -7,27 +7,28 @@
 
 void altaAlumno(Nodo** listaAlumnos) {
     //Reserva memoria y devuelve error en caso de estar llena
-    Alumno* nuevaMateria = (Alumno*)malloc(sizeof(Alumno));
+    Alumno* nuevoAlumno = (Alumno*)malloc(sizeof(Alumno));
     Nodo* nodo = (Nodo*)malloc(sizeof(Nodo));
-    if (nuevaMateria == NULL || nodo == NULL) {
+    if (nuevoAlumno == NULL || nodo == NULL) {
         printf("Memoria llena, no se pudo asignar memoria para el alumno.\n");
-        free(nuevaMateria);
+        free(nuevoAlumno);
         free(nodo);
         return;
     }
 
     //Asigna los datos al alumno
     printf("Ingrese el nombre del alumno: \n");
-    scanf("%s", nuevaMateria->nombre);
+    scanf(" %[^\n]", nuevoAlumno->nombre);
+    getchar(); //Para que no imprima la siguiente linea antes de tiempo
 
     printf("Ingrese edad del alumno: \n");
-    scanf("%d", &nuevaMateria->edad);
+    scanf("%d", &nuevoAlumno->edad);
 
-    nuevaMateria->cant_materias = 0;
+    nuevoAlumno->cant_materias = 0;
 
     
     //Asigna valores al nodo
-    nodo->valor = nuevaMateria;
+    nodo->valor = nuevoAlumno;
     nodo->next = NULL;
     
     //Si la lista esta vacia, el nuevo nodo es el head
@@ -46,7 +47,7 @@ void altaAlumno(Nodo** listaAlumnos) {
 void modificarAlumno(Nodo** listaAlumnos){
     char nombre[20];
     printf("Ingrese el nombre del alumno a modificar: \n");
-    scanf("%s", nombre);
+    scanf(" %[^\n]", nombre);
     
     Nodo* cursor = *listaAlumnos;
     while(cursor != NULL) {
@@ -66,8 +67,8 @@ void modificarAlumno(Nodo** listaAlumnos){
 
 void eliminarAlumno(Nodo** listaAlumnos){
     char nombre[20];
-    printf("Ingrese el nombre del alumno a eliminar");
-    scanf("%s", nombre);
+    printf("Ingrese el nombre del alumno a eliminar: \n");
+    scanf(" %[^\n]", nombre);
 
     Nodo* cursor = *listaAlumnos;
     Nodo* anterior = NULL;
@@ -107,14 +108,19 @@ void listarAlumnos(Nodo** listaAlumnos){
 void buscarAlumnoPorNombre(Nodo* listaAlumnos) {
     char nombre[20];
     printf("Ingrese el nombre del Alumno.\n");
-    scanf("%s", nombre);
+    scanf(" %[^\n]", nombre);
 
     while (listaAlumnos != NULL) {
         Alumno* alumno = (Alumno*)listaAlumnos->valor;
         if (strcmp(alumno->nombre, nombre) == 0) {
             printf("Nombre: %s, Edad: %d\n", alumno->nombre, alumno->edad);
             for (int i = 0; i < MaximoMaterias; i++) {
-                printf("\tMateria: %s, Nota: %d, Aprobada: %s\n", alumno->materias[i]->nombre, alumno->materias[i]->nota, alumno->materias[i]->aprobado ? "Si" : "No");
+                if (alumno->materias[i] != NULL) {
+                    printf("\tMateria: %s, Nota: %d, Aprobada: %s\n",
+                        alumno->materias[i]->nombre,
+                        alumno->materias[i]->nota, 
+                        alumno->materias[i]->aprobado ? "Si" : "No");
+                }
             }
             return;
         }
@@ -123,8 +129,7 @@ void buscarAlumnoPorNombre(Nodo* listaAlumnos) {
     printf("alumno no encontrado.\n");
 }
 
-
-void buscarAlumnoPorEdad(Nodo* listaAlumnos) {
+void buscarAlumnosPorEdad(Nodo* listaAlumnos) {
     int edad;
     printf("Ingrese la edad a buscar: \n");
     scanf("%d", &edad);
@@ -132,11 +137,14 @@ void buscarAlumnoPorEdad(Nodo* listaAlumnos) {
     while (listaAlumnos != NULL) {
         Alumno* alumno = (Alumno*)listaAlumnos->valor;
         if (alumno->edad == edad) {
+            encontrado = 1;
             printf("Nombre: %s, Edad: %d\n", alumno->nombre, alumno->edad);
             for (int i = 0; i < alumno->cant_materias; i++) {
-                printf("\tMateria: %s, Nota: %d, Aprobada: %s\n", alumno->materias[i]->nombre, alumno->materias[i]->nota, alumno->materias[i]->aprobado ? "Si" : "No");
-            }
-            return;
+                printf("\tMateria: %s, Nota: %d, Aprobada: %s\n",
+                    alumno->materias[i]->nombre,
+                    alumno->materias[i]->nota,
+                    alumno->materias[i]->aprobado ? "Si" : "No");
+                }
         }
         listaAlumnos = listaAlumnos->next;  
     }
@@ -145,12 +153,35 @@ void buscarAlumnoPorEdad(Nodo* listaAlumnos) {
     }
   }
 
+void buscarAlumnosPorMateria(Nodo* listaAlumnos){
+    int materia;
+    printf("Ingrese el codigo de la materia: \n");
+    scanf("%d", &materia);
+
+    //Recorre la lista de alumnos y cada materia que este cursando el alumno
+    int encontrado = 0;
+    while (listaAlumnos != NULL) {
+        Alumno* alumno = (Alumno*)listaAlumnos->valor;
+        for (int i = 0; i < alumno->cant_materias; i++) {
+            if (alumno->materias[i]->codigo == materia){
+                encontrado = 1;
+                printf("Nombre: %s, Edad: %d, Aprobado:%s\n", alumno->nombre, alumno->edad, alumno->materias[i]->aprobado ? "Si" : "No");
+            }
+        }    
+        listaAlumnos = listaAlumnos->next;  
+    }
+    if (!encontrado) {
+        printf("No se encontraron alumnos en la materia %d", materia);
+    }
+
+}  
+
 void anotarAlumnoEnMateria (Nodo* listaAlumnos, Nodo* listaMaterias){
-char nombreAlumno[20];
+    char nombreAlumno[20];
     int codigoMateria;
 
     printf("Ingrese el nombre del alumno: ");
-    scanf("%s", nombreAlumno);
+    scanf(" %[^\n]", nombreAlumno);
     printf("Ingrese el codigo de la materia: ");
     scanf("%d", &codigoMateria);
 
@@ -158,7 +189,7 @@ char nombreAlumno[20];
     while (cursorAlum != NULL) {
         Alumno* alumno = (Alumno*)cursorAlum->valor;
         if (strcmp(alumno->nombre, nombreAlumno) == 0) {
-           Nodo* cursorMateria = listaMaterias;
+            Nodo* cursorMateria = listaMaterias;
             while (cursorMateria != NULL) {
                 Materia* materia = (Materia*)cursorMateria->valor;
                 if (materia->codigo == codigoMateria) {
@@ -167,15 +198,15 @@ char nombreAlumno[20];
                         if (copiaMateria == NULL) {
                             printf("Error: No se pudo asignar memoria para la copia de la materia.\n");
                             return;
-                        }
-                        strcpy(copiaMateria->nombre, materia->nombre);
-                        copiaMateria->codigo = materia->codigo;
-                        copiaMateria->nota = -1; 
-                        copiaMateria->aprobado = 0; 
+                         }
+                    strcpy(copiaMateria->nombre, materia->nombre);
+                    copiaMateria->codigo = materia->codigo;
+                    copiaMateria->nota = -1; 
+                    copiaMateria->aprobado = 0; 
 
-                        alumno->materias[alumno->cant_materias] = copiaMateria;
-                        alumno->cant_materias++;
-                        printf("alumno %s anotado en la materia %s.\n", alumno->nombre, materia->nombre);
+                    alumno->materias[alumno->cant_materias] = copiaMateria;
+                    alumno->cant_materias++;
+                    printf("alumno %s anotado en la materia %s.\n", alumno->nombre, materia->nombre);
                     } else {
                         printf("El alumno ya esta inscrito en el maximo de materias permitidas.\n");
                     }
@@ -196,7 +227,7 @@ char nombreAlumno[20];
     int codigoMateria, nota;
 
     printf("Ingrese el nombre del alumno: ");
-    scanf("%s", nombreAlumno);
+    scanf(" %[^\n]", nombreAlumno);
     printf("Ingrese el codigo de la materia: ");
     scanf("%d", &codigoMateria);
     printf("Ingrese la nota: ");
@@ -235,7 +266,8 @@ void altaMateria(Nodo** listaMaterias) {
 
     //Asigna los datos a la materia
     printf("Ingrese el nombre de la materia: \n");
-    scanf("%s", nuevaMateria->nombre);
+    scanf(" %[^\n]", nuevaMateria->nombre);
+    getchar(); //Para que no imprima la siguiente linea antes de tiempo
 
     printf("Ingrese el codigo de la materia: \n");
     scanf("%d", &nuevaMateria->codigo);

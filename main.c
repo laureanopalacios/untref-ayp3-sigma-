@@ -22,12 +22,13 @@ int main() {
         printf("9. Eliminar alumno\n");
         printf("10. Eliminar materia\n");
         printf("11. Buscar alumno por nombre\n");
-        printf("12. Buscar alumno por edad\n");
+        printf("12. Buscar alumnos por edad\n");
+        printf("13. Buscar alumnos por materia\n");
         //printf("13. Calcular estadisticas\n");
         //printf("14. Calcular promedio de un alumno\n");
         //printf("15. Calcular promedio de una materia\n");
-        printf("13. Salir\n");
-        printf("Seleccione una : ");
+        printf("0. Salir\n");
+        printf("Seleccione una: ");
         scanf("%d", &opcion);
         
         switch (opcion) {
@@ -65,7 +66,10 @@ int main() {
                 buscarAlumnoPorNombre(listaAlumnos);
                 break;
             case 12:
-                buscarAlumnoPorEdad(listaAlumnos);
+                buscarAlumnosPorEdad(listaAlumnos);
+                break;
+            case 13:
+                buscarAlumnosPorMateria(listaAlumnos);
                 break;
         
            
@@ -85,8 +89,9 @@ int main() {
             //         calcularPromedioMateria(listaAlumnos, codigoMateria);
             //     }
             //     break;
-            case 13:
+            case 0:
                 printf("Saliendo...\n");
+                exit(0);
                 break;
             default:
                 printf(" invalida. Intente de nuevo.\n");
