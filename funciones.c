@@ -87,6 +87,35 @@ void buscarAlumnoPorEdad(Nodo** listaAlumnos){
 void anotarAlumnoEnMateria (Nodo* listaAlumnos, Nodo* listaMaterias){
 
 }
+void calcularPromedioAlumno(Nodo** listaAlumnos){
+    char nombre[20];
+    printf("Ingrese el nombre del alumno: \n");
+    scanf(" %[^\n]", nombre);
+    float promedio = 0;
+    int suma = 0;
+
+    int encontrado = 0;
+    Nodo* cursor = *listaAlumnos;
+    while (cursor != NULL) {
+        Alumno* alumno = (Alumno*)cursor->valor;
+        if (strcmp(alumno->nombre, nombre) == 0){
+            if(alumno->cant_materias == 0){
+                printf("El alumno no está cursando ninguna materia.\n");
+            }
+            encontrado = 1;
+            for (int i = 0; i < alumno->cant_materias; i++){
+                suma += alumno->materias[i]->nota;
+            }
+            promedio = suma/(float)alumno->cant_materias;
+            printf("El promedio del alumno %s es: %f",nombre, promedio);
+            return;
+        }
+        cursor = cursor->next;
+    }
+    if (!encontrado){
+        printf("El alumno ingresado no existe.\n");
+    }
+}
 
 
 // void altaEstudiante(Nodo** listaEstudiantes); xxx
