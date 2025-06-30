@@ -65,3 +65,5 @@ Se desarrollaron funciones como:
 - **Calculo de promedios**: Funciones para calcular promedios tanto de un estudiante individual como de la totalidad de los estudiantes de una materia.
 
 - **Paginado**: Al imprimir largas cantidades de datos en pantalla, se implementa el paginado para una mejor lectura de los datos.
+
+- **Mejoras en menu**: Implementacion de varios menus para una mejor experiencia de usuario.
