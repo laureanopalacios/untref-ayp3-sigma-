@@ -60,5 +60,8 @@ Se desarrollaron funciones como:
 - Utilizamos strcmp para comparar cadenas de texto y strcpy para copiar una cadena de caracteres en otra.
 ## 5. Puntos extra
 
-- **Estadisticas de estudiantes y materias**: se implementarion las funciones calcularPromedioEstudiante/Materia que permiten el calculo de estadisticas de una cursada o estudiante.
+- **Carga masiva de datos**: A traves de archivos txt se desarrollo una funcion para evitar cargar datos de manera manual.
 
+- **Calculo de promedios**: Funciones para calcular promedios tanto de un estudiante individual como de la totalidad de los estudiantes de una materia.
+
+- **Paginado**: Al imprimir largas cantidades de datos en pantalla, se implementa el paginado para una mejor lectura de los datos.

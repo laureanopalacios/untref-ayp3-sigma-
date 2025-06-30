@@ -1,9 +1,15 @@
-//#include <cstddef>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
 #include "structsYusos.c"
+
+int limpiarBuffer() {
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF);
+    return c;
+}
+
 
 void altaAlumno(Nodo** listaAlumnos) {
     //Reserva memoria y devuelve error en caso de estar llena
@@ -95,12 +101,19 @@ void listarAlumnos(Nodo** listaAlumnos){
         printf("La lista está vacía.\n");
         return;
     }
+    int contador = 0;
     printf("Listado: \n");
     Nodo* cursor = *listaAlumnos;
+    limpiarBuffer();
     while(cursor != NULL) {
         Alumno* alumno = (Alumno*)cursor->valor;
         printf("Nombre: %s, Edad: %d.\n",alumno->nombre, alumno->edad);
+        if (contador % 5 == 0 && contador !=0){
+            printf("Presione ENTER para avanzar al siguiente.\n");
+            getchar();
+        }
         cursor = cursor->next;
+        contador++;
     }
 }
 
@@ -173,7 +186,6 @@ void buscarAlumnosPorMateria(Nodo* listaAlumnos){
     if (!encontrado) {
         printf("No se encontraron alumnos en la materia %d", materia);
     }
-
 }  
 
 void anotarAlumnoEnMateria (Nodo* listaAlumnos, Nodo* listaMaterias){
@@ -232,6 +244,10 @@ char nombreAlumno[20];
     scanf("%d", &codigoMateria);
     printf("Ingrese la nota: ");
     scanf("%d", &nota);
+    if (nota > 10 || nota < 0){
+        printf("Nota invalida.\n");
+        return;
+    }
 
     Nodo* cursorAlum = listaAlumnos;
     while (cursorAlum != NULL) {
@@ -268,10 +284,20 @@ void altaMateria(Nodo** listaMaterias) {
     printf("Ingrese el nombre de la materia: \n");
     scanf(" %[^\n]", nuevaMateria->nombre);
     getchar(); //Para que no imprima la siguiente linea antes de tiempo
-
+    int newCodigo = 0;
     printf("Ingrese el codigo de la materia: \n");
-    scanf("%d", &nuevaMateria->codigo);
+    scanf("%d", &newCodigo);
 
+    Nodo* cursor = *listaMaterias;
+    while (cursor != NULL) {
+        Materia* materia = (Materia*)cursor->valor;
+        if (materia->codigo == newCodigo) {
+            printf("Ya existe una materia con ese código.\n");
+            return;
+        }
+    cursor = cursor->next;
+    }
+    nuevaMateria->codigo = newCodigo;
     //Asigna valores al nodo
     nodo->valor = nuevaMateria;
     nodo->next = NULL;
@@ -294,12 +320,19 @@ void listarMaterias(Nodo** listaMaterias){
         printf("La lista está vacía.\n");
         return;
     }
+    int contador = 0;
     printf("Listado: \n");
     Nodo* cursor = *listaMaterias;
+    limpiarBuffer();
     while(cursor != NULL) {
         Materia* materia = (Materia*)cursor->valor;
         printf("Nombre: %s, Codigo: %d.\n",materia->nombre, materia->codigo);
+        if (contador % 10 == 0 && contador != 0){
+            printf("Presione ENTER para avanzar a la siguiente página.\n");
+            getchar();
+        }
         cursor = cursor->next;
+        contador++;
     }
 }
 
@@ -323,6 +356,7 @@ void modificarMateria(Nodo** listaMaterias){
     }
     printf("La materia ingresada no existe.\n");
 }
+
 void eliminarMateria(Nodo** listaMaterias) {
     int codigo;
     printf("Ingrese el codigo de la materia a eliminar: ");
@@ -378,20 +412,148 @@ void calcularPromedioAlumno(Nodo** listaAlumnos){
     }
 }
 
-void calcularEstadisticasMateria(Nodo** listaMaterias){
-    int codigo;
-    printf("Ingrese el codigo de la materia a eliminar: \n");
-    scanf("%d", &codigo);
-}
-// void altaalumno(Nodo** listaAlumnos); xxx
-// void modificaralumno(Nodo* listaAlumnos); xxx
-// void eliminaralumno(Nodo** listaAlumnos); xxx
-// void listaralumnos(Nodo* listaAlumnos); xxx 
-// void buscaralumnoPorNombre(Nodo* listaAlumnos, char nombre[]); xxx
-// void buscaralumnoPorEdad(Nodo* listaAlumnos, int edad); xxx 
-// void anotaralumnoEnMateria(Nodo* listaAlumnos, Nodo* listaAlumnos); xxx
-// void rendirMateria(Nodo* listaAlumnos); xxx
-// void calcularEstadisticas(Nodo* listaAlumnos, Nodo* listaAlumnos);
-// void calcularPromedioalumno(Nodo* listaAlumnos, char nombre[]);
-// void calcularPromedioMateria(Nodo* listaAlumnos, int codigoMateria);
+void calcularEstadisticasMateria(Nodo* listaAlumnos){
+    int materia;
+    printf("Ingrese el codigo de la materia: \n");
+    scanf("%d", &materia);
+    int suma = 0;
+    int cantAlumnos = 0;
+    //Recorre la lista de alumnos y cada materia que este cursando el alumno
+    int encontrado = 0;
+    while (listaAlumnos != NULL) {
+        Alumno* alumno = (Alumno*)listaAlumnos->valor;
+        for (int i = 0; i < alumno->cant_materias; i++) {
+            if (alumno->materias[i]->codigo == materia){
+                encontrado = 1;
+                printf("Nombre: %s, Edad: %d, Aprobado:%s\n",
+                    alumno->nombre,
+                    alumno->edad,
+                    alumno->materias[i]->aprobado ? "Si" : "No");
+                suma += alumno->materias[i]->nota;
+                cantAlumnos++;
+            }
+        }    
+        listaAlumnos = listaAlumnos->next;  
+    }
+    printf("Cantidad de Alumnos:%d, Promedio general: %f.\n", cantAlumnos, (float)suma/cantAlumnos);
+    if (!encontrado) {
+        printf("No se encontro la materia.\n");
+    }
+} 
 
+void cargarMateriasDesdeArchivo(const char* nombreArchivo, Nodo** listaMaterias) {
+    FILE* archivo = fopen(nombreArchivo, "r");
+    if (!archivo) {
+        printf("No se pudo abrir el archivo: %s\n", nombreArchivo);
+        return;
+    }
+
+    char linea[150];
+    while (fgets(linea, sizeof(linea), archivo)) {
+        linea[strcspn(linea, "\n")] = 0;
+
+        char* token = strtok(linea, ";");
+        if (!token) continue;
+
+        char nombre[50];
+        strncpy(nombre, token, sizeof(nombre));
+        nombre[sizeof(nombre) - 1] = '\0';
+
+        token = strtok(NULL, ";");
+        if (!token) continue;
+
+        int codigo = atoi(token);
+
+        Materia* nuevaMateria = (Materia*)malloc(sizeof(Materia));
+        Nodo* nodo = (Nodo*)malloc(sizeof(Nodo));
+        if (!nuevaMateria || !nodo) {
+            printf("No hay memoria suficiente para cargar materia.\n");
+            free(nuevaMateria);
+            free(nodo);
+            continue;
+        }
+
+        strncpy(nuevaMateria->nombre, nombre, sizeof(nuevaMateria->nombre));
+        nuevaMateria->nombre[sizeof(nuevaMateria->nombre) - 1] = '\0';
+        nuevaMateria->codigo = codigo;
+
+        nuevaMateria->nota = 0;
+        nuevaMateria->aprobado = 0;
+
+        nodo->valor = nuevaMateria;
+        nodo->next = NULL;
+
+
+        if (*listaMaterias == NULL) {
+            *listaMaterias = nodo;
+        } else {
+            Nodo* cursor = *listaMaterias;
+            while (cursor->next != NULL) {
+                cursor = cursor->next;
+            }
+            cursor->next = nodo;
+        }
+    }
+
+    fclose(archivo);
+    printf("Carga de materias desde archivo finalizada.\n");
+}
+
+
+void cargarAlumnosDesdeArchivo(const char* nombreArchivo, Nodo** listaAlumnos) {
+    FILE* archivo = fopen(nombreArchivo, "r");
+    if (!archivo) {
+        printf("No se pudo abrir el archivo: %s\n", nombreArchivo);
+        return;
+    }
+
+    char linea[100];
+    while (fgets(linea, sizeof(linea), archivo)) {
+
+        linea[strcspn(linea, "\n")] = 0;
+
+        char* token = strtok(linea, ";");
+        if (!token) continue;
+
+        char nombre[50];
+        strncpy(nombre, token, sizeof(nombre));
+
+        token = strtok(NULL, ";");
+        if (!token) continue;
+
+        int edad = atoi(token);
+
+        Alumno* nuevoAlumno = (Alumno*)malloc(sizeof(Alumno));
+        Nodo* nodo = (Nodo*)malloc(sizeof(Nodo));
+        if (!nuevoAlumno || !nodo) {
+            printf("Error: No hay suficiente memoria para cargar un alumno.\n");
+            free(nuevoAlumno);
+            free(nodo);
+            continue;
+        }
+
+        strncpy(nuevoAlumno->nombre, nombre, sizeof(nuevoAlumno->nombre));
+        nuevoAlumno->edad = edad;
+        nuevoAlumno->cant_materias = 0;
+        for (int i = 0; i < MaximoMaterias; i++) {
+            nuevoAlumno->materias[i] = NULL;
+        }
+
+        nodo->valor = nuevoAlumno;
+        nodo->next = NULL;
+
+
+        if (*listaAlumnos == NULL) {
+            *listaAlumnos = nodo;
+        } else {
+            Nodo* cursor = *listaAlumnos;
+            while (cursor->next != NULL) {
+                cursor = cursor->next;
+            }
+            cursor->next = nodo;
+        }
+    }
+
+    fclose(archivo);
+    printf("Alumnos cargados con éxito.\n");
+}

@@ -6,7 +6,7 @@
 int main() {
     Nodo* listaAlumnos = NULL;
     Nodo* listaMaterias = NULL;
-    
+
     int opcion;
     do {
         printf("\n1. Alta de alumno\n");
@@ -22,9 +22,10 @@ int main() {
         printf("11. Buscar alumno por nombre\n");
         printf("12. Buscar alumnos por edad\n");
         printf("13. Buscar alumnos por materia\n");
-        //printf("13. Calcular estadisticas\n");
         printf("14. Calcular promedio de un alumno\n");
-        //printf("15. Calcular promedio de una materia\n");
+        printf("15. Calcular estadisticas de una materia\n");
+        printf("16. Cargar alumnos con txt\n");
+        printf("17. Cargar materias con txt\n");
         printf("0. Salir\n");
         printf("Seleccione una: ");
         scanf("%d", &opcion);
@@ -74,7 +75,13 @@ int main() {
                 calcularPromedioAlumno(&listaAlumnos);
                 break;
             case 15:
-                calcularEstadisticasMateria(&listaMaterias);
+                calcularEstadisticasMateria(listaAlumnos);
+                break;
+            case 16:
+                cargarAlumnosDesdeArchivo("data/alumnos50",&listaAlumnos);
+                break;
+            case 17:
+                cargarMateriasDesdeArchivo("data/materias.txt", &listaMaterias);
                 break;
             case 0:
                 printf("Saliendo...\n");

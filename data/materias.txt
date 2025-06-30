@@ -1,0 +1,46 @@
+Introducción a la Ingeniería en Computación;101
+Introducción a la Problemática del Mundo Contemporáneo;102
+Algoritmos y Programación I;103
+Algebra I;104
+Matemática Discreta;105
+Problemas de Historia del Siglo XX;106
+Algebra II;109
+Diseño Lógico;110
+Análisis Matemático I;111
+Cuestiones de Sociología, Economía y Política;112
+Estructura de Datos;113
+Arquitecturas de Computadoras I;114
+Inglés Básico;115
+Asignatura Optativa de Tecnicatura;116
+Análisis Matemático II;117
+Cultura Contemporánea;118
+Sistemas Operativos;119
+Inglés Técnico;120
+Taller de Lectoescritura;121
+Ingeniería de Software;122
+Física I;123
+Comunicación de Datos;124
+Base de Datos;125
+Asignatura Optativa de Ingeniería;126
+Física II;127
+Redes de Computadoras;128
+Diseño y Arquitectura de Sistemas de Computación;129
+Probabilidad y Estadística;130
+Trayecto Formativo Alternativo;131
+Matemáticas Especiales;132
+Dispositivos Electrónicos;133
+Algebra III;134
+Ingeniería de Calidad;135
+Asignatura Electiva;136
+Laboratorio de Electrónica;137
+Construcción de Sistemas de Computación;138
+Procesamiento de Señales;139
+Metodología de la Investigación;140
+Sistemas Embebidos;141
+Sistemas Ciberfísicos;142
+Control Automático;143
+Ética y Legislación;144
+Higiene y Seguridad;145
+Práctica Profesional Supervisada;146
+Trabajo Final Integrador;147
+

@@ -1,6 +1,5 @@
 #pragma once
 #define MaximoMaterias 8
-#define MaximoAlumnos 30
 
 typedef struct Materia {
     char nombre[50];
